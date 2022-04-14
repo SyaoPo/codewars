@@ -1,19 +1,19 @@
 import itertools
 
-
 def choose_best_sum(t, k, ls):
-    ls_sort = sorted(ls, reverse=True)
-    res = []
-    for i in ls_sort:
-        if i > t:
-            ls_sort.remove(i)
-    if sum(ls_sort[-k:]) > t:
+    new_distance = [i for i in ls if i <= t]
+    set_of_tuples = set([item for item in itertools.combinations(new_distance, k)])
+    list_var = []
+    for i in set_of_tuples:
+        elem = sum(i)
+        if elem <= t:
+            list_var.append(i)
+    max_sum = []
+    for j in list_var:
+        max_sum.append(sum(j))
+    if len(list_var) == 0:
         return None
-    for j in itertools.permutations(ls_sort, k):
-        res.append(j)
-    res = set(res)
-    for elem in res:
-        if sum(elem) == t:
-            return t
+    else:
+        return max(max_sum)
             
           
