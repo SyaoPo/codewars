@@ -1,0 +1,14 @@
+import itertools
+def next_bigger(n):
+    my_num = str(n)
+    set_of_tuples = list(set())
+    for i in itertools.permutations(my_num, len(my_num)):
+        if i[0] != "0" and int(i[0]) >= int(my_num[0]):
+            set_of_tuples.append(''.join(i))
+        if len(set_of_tuples) == 210:
+            break
+    set_of_tuples = sorted(set_of_tuples)
+    for j in set_of_tuples:
+        if int(j) > n:
+            return int(j)
+    return -1
