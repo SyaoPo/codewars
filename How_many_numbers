@@ -1,0 +1,64 @@
+def find_all(sum_dig, digs):
+    num_start = int("1" + ("0" * (digs - 1)))
+    num_end = int("1" + ("0" * digs))
+    my_list = [str(elem) for elem in range(num_start, num_end)]
+    my_sum = []
+    for string in my_list:
+        result = sum(map(int, string))
+        if result == sum_dig:
+            my_sum.append(string)
+    my_res = []
+    for str_ in my_sum:
+        count = sorted(str_)
+        if (count not in my_res) and count[0] != '0':
+            my_res.append(count)
+    if len(my_sum) == 0:
+        return []
+    else:
+        total_min = int("".join(my_res[0]))
+        total_max = int("".join(my_res[-1]))
+        return [len(my_res), total_min, total_max]
+        
+        
+ def find_all(sum_dig, digs):
+    num_start = int("1" + ("0" * (digs - 1)))
+    num_end = int("1" + ("0" * digs))
+    my_list = [str(elem) for elem in range(num_start, num_end)]
+    my_sum = []
+    for string in my_list:
+        result = sum(map(int, string))
+        if result == sum_dig:
+            my_sum.append(string)
+
+    my_dict = {}
+    for n in my_sum:
+        k = tuple(sorted(n))
+        if k[0] != "0":
+            my_dict[k] = int(n)
+
+    res = sorted([])
+    for k, v in my_dict.items():
+        res.append(k)
+
+    total = []
+    for elem in res:
+        num = ""
+        for el in elem:
+            num += el
+        total.append(int(num))
+
+    if len(my_sum) == 0:
+        return []
+    else:
+        return [len(total), min(total), max(total)]
+        
+        
+  from itertools import combinations_with_replacement
+
+def find_all(sum_dig, digs):
+    combs = combinations_with_replacement(list(range(1, 10)), digs)
+    target = [''.join(str(x) for x in list(comb)) for comb in combs if sum(comb) == sum_dig]
+    if not target:
+        return []
+    return [len(target), int(target[0]), int(target[-1])]
+print(find_all(10, 3))
