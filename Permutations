@@ -1,0 +1,12 @@
+import itertools
+
+def permutations(some_string):
+    res = []
+    string = ""
+    set_if_tuples = set([item for item in itertools.permutations(some_string, len(some_string))])
+    for tuple_ in set_if_tuples:
+        for letter in tuple_:
+            string += letter
+        res.append(string)
+        string = ""
+    return res
