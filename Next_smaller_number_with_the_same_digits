@@ -1,0 +1,18 @@
+import itertools
+def next_smaller(n):
+    my_num = str(n)[-3:]
+    set_of_tuples = set([item for item in itertools.permutations(str(my_num), len(str(my_num)))])
+    list_of_str = []
+    for tuple_ in set_of_tuples:
+        string = ""
+        for letter in tuple_:
+            string += letter
+        list_of_str.append(string)
+    res = []
+    for elem in list_of_str:
+        if int(elem) < int(my_num):
+            res.append(elem)
+    if len(res) == 0:
+        return -1
+    else:
+        return int(str(n)[:-3] + max(res))
