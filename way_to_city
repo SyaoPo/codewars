@@ -17,3 +17,19 @@ def choose_best_sum(t, k, ls):
         return max(max_sum)
             
           
+import itertools
+def choose_best_sum(t, k, ls):
+    new_distance = [i for i in ls if i <= t]
+    set_of_tuples = set([item for item in itertools.combinations(new_distance, k)])
+    list_var = []
+    for i in set_of_tuples:
+        elem = sum(i)
+        if elem <= t:
+            list_var.append(i)
+    max_sum = []
+    for j in list_var:
+        max_sum.append(sum(j))
+    if len(list_var) == 0:
+        return None
+    else:
+        return max(max_sum)
