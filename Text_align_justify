@@ -1,0 +1,46 @@
+def space_in_text(my_list, width):
+    sum_of_word = 0
+    result = ""
+    for el in my_list:
+        sum_of_word += len(el)
+    diff = width - sum_of_word
+    if len(my_list) > 2:
+        sum_of_space = diff // (len(my_list) - 1)
+        if diff % (len(my_list) - 1) == 0:
+            for elem in my_list:
+                result += elem + " " * sum_of_space
+            return result
+        else:
+            diff_2 = diff - ((len(my_list) - 1) * sum_of_space)
+            for elem in my_list[:diff_2]:
+                result += elem + " " * (sum_of_space + 1)
+            for elem in  my_list[diff_2:]:
+                result += elem + " " * sum_of_space
+            return result
+    if len(my_list) == 2:
+        result += my_list[0] + (" " * diff) + my_list[1]
+    else:
+        result += my_list[0] + (" " * diff)
+    return result
+
+def justify(text, width):
+    list_text = text.split()
+    list_for_space = []
+    counter = 0
+    result = ""
+    for i in range(len(list_text)):
+        
+        if (len(list_text[i]) == width) and (list_text[i] != list_text[-1]):
+            result += list_text[i] + "\n"
+        if (counter < width) and (width >= (counter + len(list_text[i]))):
+            list_for_space.append(list_text[i])
+            counter += len(list_text[i]) + 1
+            continue
+        if (counter >= width) or (width < (counter + len(list_text[i+1]))):
+            result += space_in_text(list_for_space, width).rstrip()
+            counter = 0
+            list_for_space = []
+            result += "\n"
+        if list_text[i] == list_text[-1]:
+            result += list_text[i]
+    return result
